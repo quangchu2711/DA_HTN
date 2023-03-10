@@ -1,0 +1,9 @@
+BotName               : 'Quang_bot'
+BotToken              : '6077096010:AAHqTysDzt4s9a-qFnC7d8HRrGYnjzwFhwY'
+GroupID               : -935232508
+Broker                : 'localhost:1883'
+User                  : 'dahtn'
+Password              : '230308'
+TopicTxLed            : 'serial/led/control'
+TopicRxSensor         : 'serial/sensor/value'
+

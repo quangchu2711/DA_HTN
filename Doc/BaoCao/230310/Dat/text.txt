@@ -1,0 +1,16 @@
+Trong tuần qua bọn em có họp và chia lại công việc:
+Công việc của nhóm em chia làm 3 phần chính:
+Bạn Tuấn Anh code chatbot bằng Golang
+ 3 bạn còn lại code nhúng (code C):
+ - Trong code C chia tiếp làm 2 việc chính:
+    + Code tầng App: Cụ thể là code về freeRTOS, bạn...
+    + Code tầng Driver: Code toàn bộ các thư viện về ngoại vi(UART, I2C, ADC) và cảm biến (DHT11, cảm biến ánh sáng)
+        . Code driver sẽ có em và 1 bạn nữa cùng làm, bạn ... sẽ code chính driver, em có code phụ
+        1 thư viện tạo Delay (bạn ấy giao cho em, khả năng code của em không bằng các bạn), chủ yếu em sẽ làm phần cứng và thử nghiệm mạch
+
+- Nhóm em có làm lại chi tiết sơ đồ khối, em xin báo cáo thầy như sau:
+Sơ đồ khối của em chia làm 3 phần  chính:
++ Khối input (màu vàng): cảm biến,...
++ Khối vi điều khiển(màu tím): Chọn vi điều khiển STM32F103C8T6, có sd freeRTOS
++ Khối output (màu xanh):...
++ Khối BotChat (màu xanh):...
