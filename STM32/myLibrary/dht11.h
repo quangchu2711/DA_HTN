@@ -1,20 +1,14 @@
-#ifndef RING_BUFFER_H
-#define RING_BUFFER_H
+#ifndef DHT11_H
+#define DHT11_H
 /*******************************************************************************
 * Definitions
 ******************************************************************************/
-typedef struct
-{
-    uint8_t *buffer;
-    int8_t head;
-    int8_t tail;
-    uint16_t maxLen;
-} RING_BUFFER;
+#define DHT11_CLOCK    RCC_APB2Periph_GPIOB
+#define DHT11_PORT     GPIOB
+#define DHT11_PIN      GPIO_Pin_5
 /*******************************************************************************
 * API
 ******************************************************************************/
-int8_t RB_Push(RING_BUFFER *rb, uint8_t data);
-int8_t RB_Pop(RING_BUFFER *rb, uint8_t *data);
-uint16_t RB_Available(RING_BUFFER *rb);
-void RB_Init(RING_BUFFER *rb, uint8_t *data, uint16_t len);
+uint8_t DHT11_Init(void);
+bool DHT11_ReadData(uint8_t* pTemp, uint8_t* pHum);
 #endif

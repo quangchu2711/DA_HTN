@@ -1,8 +1,7 @@
-.\objects\servo.o: ..\..\myLibrary\Servo.c
-.\objects\servo.o: ..\..\myLibrary\Servo.h
+.\objects\servo.o: ..\..\myLibrary\servo.c
+.\objects\servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\servo.o: C:\Users\quang\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h
 .\objects\servo.o: ..\..\lib\CMSIS\CM3\CoreSupport\core_cm3.h
-.\objects\servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\servo.o: C:\Users\quang\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h
 .\objects\servo.o: ..\..\project\stm32f10x_conf.h
 .\objects\servo.o: ..\..\lib\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -29,4 +28,4 @@
 .\objects\servo.o: ..\..\lib\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\servo.o: ..\..\lib\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\servo.o: ..\..\lib\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\servo.o: ..\..\myLibrary\PWM.h
+.\objects\servo.o: ..\..\myLibrary\servo.h
