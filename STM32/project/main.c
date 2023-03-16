@@ -46,10 +46,12 @@ static void Task_HandleSensorData( void *pvParameters )
 
 static void Task_HandleDevice( void *pvParameters )
 {
+    LED_Init();
     SERVO_Init(GPIOA, GPIO_Pin_6);
 
     while (1)
     {
+
     }
 }
 
