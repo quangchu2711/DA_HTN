@@ -29,13 +29,24 @@ type APP_DHTSensor_t struct {
     TimeUpdate string
 }
 
+type APP_LightSensor_t struct {
+    Light string
+    TimeUpdate string
+}
+
 type APP_LivingRoomStatus_t struct {
     SensorStatus APP_DHTSensor_t
     LedStatus bool
 }
 
+type APP_KitchenStatus_t struct {
+    SensorStatus APP_LightSensor_t
+    LedStatus bool
+}
+
 type APP_HomeStatus_t struct {
     LivingRoom APP_LivingRoomStatus_t
+    Kitchen APP_KitchenStatus_t
 }
 
 var g_cfgFile APP_FileConfig_t
@@ -45,10 +56,12 @@ var g_home APP_HomeStatus_t
 var APP_RecevieMQTTMessage mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
     mqttMsg := string(msg.Payload())
     fmt.Printf("Received message: %s from topic: %s\n", mqttMsg, msg.Topic())
-    dhtMsg := strings.Split(mqttMsg, "/")
-    g_home.LivingRoom.SensorStatus.Temperature = dhtMsg[0]
-    g_home.LivingRoom.SensorStatus.Humidity = dhtMsg[1]
+    sensorMsg := strings.Split(mqttMsg, "/")
+    g_home.LivingRoom.SensorStatus.Temperature = sensorMsg[0]
+    g_home.LivingRoom.SensorStatus.Humidity = sensorMsg[1]
+    g_home.Kitchen.SensorStatus.Light = sensorMsg[2]
     currentTime := time.Now()
+    g_home.Kitchen.SensorStatus.TimeUpdate = currentTime.Format("01-02-2006 15:04:05")
     g_home.LivingRoom.SensorStatus.TimeUpdate = currentTime.Format("01-02-2006 15:04:05")
     // fmt.Printf("DHT", g_home.LivingRoom)
 }

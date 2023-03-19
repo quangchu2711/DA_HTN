@@ -31,9 +31,9 @@ func BOT_CreateTextAboutTimeDifference(updateTime string) string {
     }else if seconds > 0 {
         text =  "<i>" + "Cập nhật " + strconv.Itoa(seconds) + " giây trước" + "</i>"
     }
-    if seconds < 3 {
-        text = ""
-    }
+    // if seconds < 3 {
+    //     text = ""
+    // }
 
     return text
 
@@ -53,37 +53,64 @@ func BOT_Progress (msg string, homeStatus *APP_HomeStatus_t) (bool, string) {
     case "Xem tình trạng căn phòng", "Status", "status":
         msg = "[Tình trạng căn phòng/Phòng bếp/Phòng khách]"
         inlineType = true;
-    case "Phòng bếp":
+    case "Phòng khách":
         var timeDifferent string
         var lrledSta string
         lrSta := homeStatus.LivingRoom
-        tem := "Nhiệt độ phòng bếp: " + "<b>" + lrSta.SensorStatus.Temperature + "°C" + "</b>"
-        hum := "Độ ẩm phòng bếp: " + "<b>" + lrSta.SensorStatus.Humidity + "%" + "</b>"
+        tem := "Nhiệt độ phòng khách: " + "<b>" + lrSta.SensorStatus.Temperature + "°C" + "</b>"
+        hum := "Độ ẩm phòng khách: " + "<b>" + lrSta.SensorStatus.Humidity + "%" + "</b>"
         sensorResponse := tem + "\n" + hum
         fmt.Println(sensorResponse)
         timeDifferent = BOT_CreateTextAboutTimeDifference(lrSta.SensorStatus.TimeUpdate)
         if lrSta.LedStatus == true{
+            lrledSta = "Đèn phòng khách" + "<b>" + " đang bật" + "</b>"
+        } else {
+            lrledSta = "Đèn phòng khách" + "<b>" + " đang tắt" + "</b>"
+        }
+        if timeDifferent != "" {
+            msg = sensorResponse + "\n" + timeDifferent + "\n" + lrledSta
+        } else {
+            msg = sensorResponse + "\n" + lrledSta
+        }
+        inlineType = false
+    case "Phòng bếp":
+        var timeDifferent string
+        var lrledSta string
+        lrSta := homeStatus.Kitchen
+        light := "Cảm biến ánh sáng phòng bếp: " + "<b>" + lrSta.SensorStatus.Light + "</b>"
+        sensorResponse := light
+        fmt.Println(sensorResponse)
+        timeDifferent = BOT_CreateTextAboutTimeDifference(lrSta.SensorStatus.TimeUpdate)
+        if lrSta.LedStatus == true{
             lrledSta = "Đèn phòng bếp" + "<b>" + " đang bật" + "</b>"
-        }else {
+        } else {
             lrledSta = "Đèn phòng bếp" + "<b>" + " đang tắt" + "</b>"
         }
-        msg = sensorResponse + "\n" + timeDifferent + "\n" + lrledSta
+        if timeDifferent != "" {
+            msg = sensorResponse + "\n" + timeDifferent + "\n" + lrledSta
+        } else {
+            msg = sensorResponse + "\n" + lrledSta
+        }
         inlineType = false
     case "Bật đèn phòng bếp":
         APP_SendMQTTMessage("ON1")
         msg = "Đèn phòng bếp đã bật"
+        homeStatus.Kitchen.LedStatus = true
         inlineType = false
     case "Tắt đèn phòng bếp":
         APP_SendMQTTMessage("OFF1")
         msg = "Đèn phòng bếp đã tắt"
+        homeStatus.Kitchen.LedStatus = false
         inlineType = false
     case "Bật đèn phòng khách":
         APP_SendMQTTMessage("ON2")
         msg = "Đèn phòng khách đã bật"
+        homeStatus.LivingRoom.LedStatus = true
         inlineType = false
     case "Tắt đèn phòng khách":
         APP_SendMQTTMessage("OFF2")
         msg = "Đèn phòng khách đã tắt"
+        homeStatus.LivingRoom.LedStatus = false
         inlineType = false
     default: /* Khác tất cả tin nhắn */
         msg = "Câu lệnh không được hỗ trợ, vui lòng thử lại một số lệnh sau:\n[1] help\n[2] control\n[3] status"

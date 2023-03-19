@@ -1,8 +1,8 @@
-package main
+ package main
 import (
     "fmt"
     "log"
-    // "bufio"
+    "bufio"
     "github.com/jacobsa/go-serial/serial"
     "github.com/ghodss/yaml"
     "io"
@@ -92,7 +92,8 @@ func APP_Init() {
     g_ledClient = APP_MqttBegin(g_cfgFile.Broker, g_cfgFile.User, g_cfgFile.Password, &APP_RecevieMQTTMessage)
     g_ledClient.Subscribe(g_cfgFile.TopicTxLed, 1, nil)
     fmt.Println("MQTT connected")
-    g_portDevice, g_err = APP_SerialBegin("COM21", 9600)
+    APP_SendMQTTMessage("0/0/0")
+    g_portDevice, g_err = APP_SerialBegin("COM7", 115200)
     if g_err != nil {
       log.Fatalf("serial.Open: %v", g_err)
     }else {
@@ -104,34 +105,10 @@ func APP_Init() {
 func main() {
     APP_Init()
 
-    for
-    {
-
+    scanner := bufio.NewScanner(g_portDevice)
+    for scanner.Scan() {
+        APP_SendMQTTMessage(scanner.Text())
+        fmt.Println("Received:" + scanner.Text())
     }
-    // // Set up options.
-    // options := serial.OpenOptions{
-    //   PortName: "COM4",
-    //   BaudRate: 9600,
-    //   DataBits: 8,
-    //   StopBits: 1,
-    //   MinimumReadSize: 4,
-    // }
-
-    // // Open the port.
-    // port, err := serial.Open(options)
-    // if err != nil {
-    //   log.Fatalf("serial.Open: %v", err)
-    // }
-
-    // // Make sure to close it later.
-    // defer port.Close()
-
-    // scanner := bufio.NewScanner(port)
-    // for scanner.Scan() {
-    //     fmt.Println(scanner.Text())
-    // }
-    // if err := scanner.Err(); err != nil {
-    //     log.Fatal(err)
-    // }
 }
 
