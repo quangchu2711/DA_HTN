@@ -93,7 +93,7 @@ func APP_Init() {
     g_ledClient.Subscribe(g_cfgFile.TopicTxLed, 1, nil)
     fmt.Println("MQTT connected")
     APP_SendMQTTMessage("0/0/0")
-    g_portDevice, g_err = APP_SerialBegin("COM7", 115200)
+    g_portDevice, g_err = APP_SerialBegin("COM4", 115200)
     if g_err != nil {
       log.Fatalf("serial.Open: %v", g_err)
     }else {

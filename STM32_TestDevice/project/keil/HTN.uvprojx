@@ -492,6 +492,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\myLibrary\uart.c</FilePath>
             </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\myLibrary\led.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
